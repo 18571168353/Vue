@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- cloak 清除闪烁 -->
+			<div v-cloak>{{msg}}</div>
+			<!-- text显示文本 -->
+			<div v-text="msg"></div>
+			<!-- html解析html标签 -->
+			<div v-html="msg1"></div>
+			<!-- pre跳过编译过程 -->
+			<div v-pre>{{msg}}</div>
+		</div>
+		<script src="./js/vue.js"></script>
+		<script>
+			var vm = new Vue({
+				// el: '#app',
+				data: {
+					msg: 'hello word',
+					msg1: '<h1>你好</h1>'
+				}
+			})
+			vm.$mount('#app')
+		</script>
+	</body>
+</html>
