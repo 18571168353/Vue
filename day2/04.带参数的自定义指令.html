@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-color="msg" />
+		</div>
+        <div id="app2">
+			<input type="text" v-color="msg1" />
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script>
+			Vue.directive('color', {
+				bind: function (el, binding) {
+					el.style.backgroundColor = binding.value.color
+				}
+			})
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					msg: {
+						color: 'blue'
+					}
+				},
+				methods: {
+					handle: function () {}
+				}
+            })
+            new Vue({
+                el: '#app2',
+                data: {
+					msg1: {
+						color: 'red'
+					}
+				},
+				methods: {
+					handle: function () {}
+				}
+			})
+		</script>
+	</body>
+</html>
