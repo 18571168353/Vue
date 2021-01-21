@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<hello-world></hello-world>
+			<test-com></test-com>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script>
+			Vue.component('test-com', {
+				// 外面的不能调用局部的组件 会报错
+				template: '<div>text<hello-world></hello-world></div>'
+			})
+			// 内容
+			var HelloWorld = {
+				data: function () {
+					return {
+						msg: 'HelloWorld'
+					}
+				},
+				// 组件模板
+				template: '<div>{{msg}}</div>'
+			}
+			var vm = new Vue({
+				el: '#app',
+				data: {},
+				// 局部组件
+				components: {
+					//名称 : 内容
+					'hello-world': HelloWorld
+				}
+			})
+		</script>
+	</body>
+</html>

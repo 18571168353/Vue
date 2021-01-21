@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{pmsg}}</div>
+			<!-- <menu-item title="来自父组件的值"></menu-item> -->
+			<menu-item :menu-title="title1"></menu-item>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script>
+			// #在props中使用驼峰形式,模板中需要使用短横线的形式来使用,字符串形式的模板没有这个限制
+
+			// 子组件
+			Vue.component('third-item', {
+				props: ['testTitle'],
+				// 拼接上来着父组件的值title
+				template: '<div>{{testTitle}}</div>'
+			})
+			Vue.component('menu-item', {
+				props: ['menuTitle'],
+				// 拼接上来着父组件的值title
+				template: '<div>{{menuTitle}}<third-item testTitle="hello"></third-item></div>'
+			})
+			// 父组件
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					pmsg: '父组件中内容',
+					title1: '动态绑定数据'
+				}
+			})
+		</script>
+	</body>
+</html>

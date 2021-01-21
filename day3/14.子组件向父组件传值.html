@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<div :style='{fontSize:fontSize +"px"}'>{{pmsg}}</div>
+			<!-- <menu-item title="来自父组件的值"></menu-item> -->
+			<menu-item :parr="parr" @enlarge-text='handle'></menu-item>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script>
+			// #在props中使用驼峰形式,模板中需要使用短横线的形式来使用,字符串形式的模板没有这个限制
+
+			// 子组件
+			Vue.component('menu-item', {
+				props: ['parr'],
+				// 拼接上来着父组件的值title
+				template: `<div>
+                    <ul>
+                    <li :key='index' v-for='(item,index) in parr'>{{item}}</li>    
+                    </ul>
+                    <button @click='parr.push("lemon")'>点击</button>
+
+                    <button @click='$emit("enlarge-text")'>字体扩大</button>
+                    </div>`
+                    // 子组件向父组件传值
+			})
+			// 父组件
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					pmsg: '父组件中内容',
+                    parr: ['apple', 'orange'],
+                    fontSize:10
+                },
+                methods:{
+                    handle:function(){
+                        this.fontSize+='5'
+                    }
+                }
+			})
+		</script>
+	</body>
+</html>
