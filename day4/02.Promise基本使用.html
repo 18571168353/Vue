@@ -7,9 +7,12 @@
 	</head>
 	<body>
 		<script>
-			const p = new Promise((resolve, reiect) => {
+			// Promise为一个函数
+			// console.log(typeof Promise);
+			const p = new Promise((resolve, reject) => {
 				setTimeout(() => {
-					if (Math.random() > 0.5) {
+					var flag = false
+					if (flag) {
 						resolve('成功')
 					} else {
 						reject('失败')
@@ -17,11 +20,11 @@
 				})
 			})
 			p.then(
-				(data) => {
+				function(data){
 					console.log(data)
 				},
-				(err) => {
-					console.log(data)
+				function(err){
+					console.log(err)
 				}
 			)
 		</script>
