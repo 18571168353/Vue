@@ -30,18 +30,28 @@
 			//     console.log(info);
 			// }
 
-			queryData('http://localhost:3000/data')
-				.then(function (data) {
-					console.log(data)
-					return queryData('http://localhost:3000/data1')
-				})
-				.then(function (data) {
-					console.log(data)
-					return queryData('http://localhost:3000/data2')
-				})
-				.then(function (data) {
-					console.log(data)
-				})
+			async function run() {
+				// await之后的返回值,就是这Promise resolve的结果
+				// await 必须会等待当前代码执行完毕,才会往后执行
+				let r1 = await queryData('http://localhost:3000/data')
+				let r2 = await queryData('http://localhost:3000/data1')
+				let r3 = await queryData('http://localhost:3000/data2')
+				console.log(r1, r2, r3)
+			}
+			run()
+
+			// queryData('http://localhost:3000/data')
+			// 	.then(function (data) {
+			// 		console.log(data)
+			// 		return queryData('http://localhost:3000/data1')
+			// 	})
+			// 	.then(function (data) {
+			// 		console.log(data)
+			// 		return queryData('http://localhost:3000/data2')
+			// 	})
+			// 	.then(function (data) {
+			// 		console.log(data)
+			// 	})
 		</script>
 	</body>
 </html>
