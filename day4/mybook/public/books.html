@@ -79,7 +79,7 @@
             date = parseInt(mts[2]);
           }
         }
-        date = new Date(date);
+        date = new Date();
         if (!date || date.toUTCString() == "Invalid Date") {
           return "";
         }
