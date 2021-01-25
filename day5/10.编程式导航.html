@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./lib/vue_2.5.22.js"></script>
+		<script src="./lib/vue-router_3.0.2.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 1指定路由地址 -->
+			<router-link to="/user/1">User</router-link>
+			<router-link to="/user/2">User</router-link>
+			<router-link :to="{name:'user',params:{id:3}}">User</router-link>
+			<!-- 2指定路由占位符,当路由匹配时,显示组件的地方 -->
+			<router-link to="/register">Register</router-link>
+			<router-view></router-view>
+		</div>
+		<script>
+			const User = {
+				props: ['id', 'uname', 'age'],
+				template: `
+				<div>
+				<h1>User组件--用户的id为:{{id}},姓名为{{uname}},年龄为:{{age}}</h1>
+				<button @click='goRegister'>跳转到注册页面</button>
+				</div>`,
+				methods: {
+					goRegister() {
+						this.$router.push('/register')
+					}
+				}
+			}
+			const Register = {
+				// props:[name],
+				template: `<div>
+					<h1>Register组件,姓名为{{name}}</h1>
+					<button @click='goBack'>后退</button>
+					</div>`,
+				methods: {
+					goBack() {
+						this.$router.go(-1)
+					}
+				}
+			}
+			// 3.配置路由规则
+			const router = new VueRouter({
+				routes: [
+					// { path: '/', redirect: '/User' },
+					{
+						name: 'user',
+						path: '/user/:id',
+						component: User,
+						props: (route) => ({ uname: 'zs', age: 20, id: route.params.id })
+					},
+					{ path: '/register', component: Register }
+				]
+			})
+			const vm = new Vue({
+				el: '#app',
+				// 4.挂载路由实例
+				router
+			})
+		</script>
+	</body>
+</html>
