@@ -18,6 +18,36 @@ module.exports = {
 		path: path.join(__dirname, './dist'),
 		// 设置文件名
 		filename: 'bundle.js'
-    },
-    plugins:[ htmlPlugin ]
+	},
+	plugins: [htmlPlugin],
+	module: {
+		rules: [
+			{
+				//test设置需要匹配的文件类型，支持正则
+				test: /\.css$/,
+				//use表示该文件类型需要调用的loader
+				use: ['style-loader', 'css-loader', 'postcss-loader']
+			},
+			{
+				test: /\.less$/,
+				use: ['style-loader', 'css-loader', 'less-loader']
+			},
+			{
+				test: /\.scss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
+			},
+			{
+				test: /\.jpg|png|gif|bmp|ttf|eot|svg|woff|woff2$/,
+				// limit 用来设置字节数，小于等于 limit 值的图片，会转成 base64 格式
+				// 注意针对的是背景图片
+				use: 'url-loader?limit=16941'
+			},
+			{
+				test: /\.js$/,
+				use: 'babel-loader',
+				// exclude为排除项，意思是不要处理 node_modules 中的 js 文件
+				exclude: /node_modules/
+			}
+		]
+	}
 }
